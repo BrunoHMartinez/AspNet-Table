@@ -1,26 +1,17 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AspNetAula01Manha.DAL;
 using AspNetAula01Manha.Models;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
+// Bruno Henrique Martinez
 namespace AspNetAula01Manha.Controllers
 {
     public class PedidoController : Controller
     {
-        private readonly Context _context;
-
-        public PedidoController(Context context)        
+        private readonly PedidoDAO _pedidoDAO;
+        public PedidoController(PedidoDAO pedidoDAO)
         {
-            _context = context;
-        }
-        public IActionResult Index()
-        {
-            ViewBag.Pedidos = ListarPedidos();
-            ViewBag.DataHora = DateTime.Now;
-            return View();
+            _pedidoDAO = pedidoDAO;
         }
 
         public IActionResult Cadastrar()
@@ -30,25 +21,37 @@ namespace AspNetAula01Manha.Controllers
         [HttpPost]
         public IActionResult Cadastrar(Pedido pedido)
         {
-            if (_context.pedidos.Any(p => p.Produto == pedido.Produto))
-            {
-                return RedirectToAction("Erro");
-            }
-               
-           else
-            {
-                _context.pedidos.Add(pedido);
-                _context.SaveChanges();
-                return RedirectToAction("Index");
-            }
+            _pedidoDAO.Cadastrar(pedido);
+            return RedirectToAction("Index");
         }
-        public List<Pedido> ListarPedidos()
+
+        public IActionResult Index()
         {
-            return _context.pedidos.ToList();
-        }
-        public IActionResult Erro()
-        {
+            ViewBag.pedidos = _pedidoDAO.ListarPedidos();
+            ViewBag.DataHora = DateTime.Now;
             return View();
+        }
+        public IActionResult Remover(int id)
+        {
+            _pedidoDAO.Remover(id);
+            return RedirectToAction("Index");
+        }
+        public IActionResult Alterar(int id)
+        {
+            ViewBag.pedidos = _pedidoDAO.BuscarPorId(id);
+            return View();
+        }
+        [HttpPost]
+        public IActionResult Alterar(Pedido pedido)
+        {
+            Pedido p = _pedidoDAO.BuscarPorId(pedido.Pedidoid);
+            p.Produto = pedido.Produto;
+            p.Quantidade = pedido.Quantidade;
+            p.Valor = pedido.Valor;
+            p.Fornecedor = pedido.Fornecedor;
+            p.Data = pedido.Data;
+            _pedidoDAO.Alterar(p);
+            return RedirectToAction("Index");
         }
     }
 }

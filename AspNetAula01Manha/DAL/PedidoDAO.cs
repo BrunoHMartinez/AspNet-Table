@@ -22,11 +22,24 @@ namespace AspNetAula01Manha.DAL
                 _context.pedidos.Add(pedido);
                 _context.SaveChanges();
             }
-  
         }
         public List<Pedido> ListarPedidos()
         {
             return _context.pedidos.ToList();
+        }
+        public Pedido BuscarPorId(int id)
+        {
+            return _context.pedidos.Find(id);
+        }
+        public void Remover(int id)
+        {
+            _context.pedidos.Remove(BuscarPorId(id));
+            _context.SaveChanges();
+        }
+        public void Alterar(Pedido p)
+        {
+            _context.pedidos.Update(p);
+            _context.SaveChanges();
         }
     }
 }

@@ -9,26 +9,39 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Cadastrar</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
-<body>
+<body class="container" style="padding-top:30px"> 
     <form asp-action="Cadastrar" asp-controller="Pedido">
-        <label asp-for="Produto">Produto:</label>
-        <input type="text" asp-for="Produto" required /><br />
+        <fieldset>
+            <legend class="font-weight-bold" ><font color="#088A29">Cadastro de Pedidos</font></legend>
+            <div class="form-group">
+                <label asp-for="Produto">Produto:</label>
+                <input type="text" asp-for="Produto" class="form-control" required />
+            </div>
 
-        <label asp-for="Quantidade">Quantidade:</label>
-        <input type="text" asp-for="Quantidade" /><br />
+            <div class="form-group">
+                <label asp-for="Quantidade">Quantidade:</label>
+                <input type="text" asp-for="Quantidade" class="form-control" />
+            </div>
 
-        <label asp-for="Valor">Valor:</label>
-        <input type="text" asp-for="Valor" required /><br />
+            <div class="form-group">
+                <label asp-for="Valor">Valor:</label>
+                <input type="text" asp-for="Valor" class="form-control" required />
+            </div>
 
-        <label asp-for="Fornecedor">Fornecedor:</label>
-        <input type="text" asp-for="Fornecedor" /><br />
+            <div class="form-group">
+                <label asp-for="Fornecedor">Fornecedor:</label>
+                <input type="text" asp-for="Fornecedor" class="form-control" />
+            </div>
 
-        <label asp-for="Data">Data:</label>
-        <input type="text" asp-for="Data" /><br />
+            <div class="form-group">
+                <label asp-for="Data">Data:</label>
+                <input type="text" asp-for="Data" class="form-control" />
+            </div>
 
-        <input type="submit" value="Cadastrar" />
-
+            <input type="submit" value="Cadastrar" class="btn btn-success" />
+        </fieldset>
     </form>
 </body>
 </html>

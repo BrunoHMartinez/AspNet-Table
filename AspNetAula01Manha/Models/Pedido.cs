@@ -11,11 +11,9 @@ namespace AspNetAula01Manha.Models
     public class Pedido
     {
         [Key]
-        public int Pedidoid { get; set; }
-        [Required]
+        public int Pedidoid { get; set; }    
         public string Produto { get; set; }
-        public int Quantidade { get; set; }
-        [Required]  
+        public int Quantidade { get; set; } 
         public double Valor { get; set; }
         public string Fornecedor { get; set; }
         public DateTime Data { get; set; }

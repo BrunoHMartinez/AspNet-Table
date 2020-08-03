@@ -1,7 +1,7 @@
 ﻿
 @{
     DateTime data = ViewBag.DataHora;
-    List<Pedido> pedidos = ViewBag.Pedidos;
+    List<Pedido> pedidos = ViewBag.pedidos;
 }
 
 <!DOCTYPE html>
@@ -10,35 +10,49 @@
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 </head>
-<body>
-    <h2>Gerenciamento de Pedidos</h2>
-   <p><a asp-action="Cadastrar" asp-controller="Pedido">Cadastrar</a></p>
-    <table border="1">
-        <thead>
-            <tr>
-                <th>Produto </th>
-                <th>Quantidade </th>
-                <th>Valor </th>
-                <th>Fornecedor </th>
-                <th>Data </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (Pedido item in pedidos)
-            {
+<body class="container" col-7 style="padding-top:30px">
+    <fieldset>
+        <legend class="font-weight-bold"><font color="#2E2E2E">Gerenciamento de Pedidos</font></legend>
+        <table class="table table-light table-striped table-bordered">
+            <thead class="thead-dark">
                 <tr>
-                    <td>@item.Produto</td>
-                    <td>@item.Quantidade</td>
-                    <td>@item.Valor.ToString("C2")</td>
-                    <td>@item.Fornecedor</td>
-                    <td>@item.Data</td>
+                    <th class="text-center">Produto  </th>
+                    <th class="text-center">Quantidade </th>
+                    <th class="text-center">Valor </th>
+                    <th class="text-center">Fornecedor </th>
+                    <th class="text-center">Data</th>
+                    <th class="text-center">Alterar</th>
+                    <th class="text-center">Remover</th>
                 </tr>
-            }
-        </tbody>
-    </table>
-    <p>
-        <b>Dados atualizados em: </b> @data
-    </p>
+            </thead>
+            <tbody>
+                @foreach (Pedido item in pedidos)
+                {
+                    <tr>
+                        <td class="text-center">@item.Produto</td>
+                        <td class="text-center">@item.Quantidade</td>
+                        <td class="text-center">@item.Valor.ToString("C2")</td>
+                        <td class="text-center">@item.Fornecedor</td>
+                        <td class="text-center">@item.Data</td>
+                        <td class="text-center">
+                            <a asp-action="Alterar" asp-controller="Pedido" class="btn btn-info" asp-route-id="@item.Pedidoid">Alterar</a>
+                        </td>
+                        <td class="text-center">
+                            <a asp-action="Remover" asp-controller="Pedido" class="btn btn-danger" asp-route-id="@item.Pedidoid">Remover</a>
+                        </td>
+                    </tr>
+                }
+                
+            </tbody>
+        </table>
+        <p>
+        <a asp-action="Cadastrar" asp-controller="Pedido" class="btn btn-outline-success btn-block font-weight-bold">CADASTRAR UM NOVO PEDIDO</a>
+        </p>
+        <p>
+            <b>Dados atualizados em: </b> @data
+        </p>
+    </fieldset>
 </body>
 </html>
