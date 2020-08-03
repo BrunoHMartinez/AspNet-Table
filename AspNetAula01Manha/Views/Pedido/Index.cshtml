@@ -1,0 +1,44 @@
+﻿
+@{
+    DateTime data = ViewBag.DataHora;
+    List<Pedido> pedidos = ViewBag.Pedidos;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+    <h2>Gerenciamento de Pedidos</h2>
+   <p><a asp-action="Cadastrar" asp-controller="Pedido">Cadastrar</a></p>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>Produto </th>
+                <th>Quantidade </th>
+                <th>Valor </th>
+                <th>Fornecedor </th>
+                <th>Data </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Pedido item in pedidos)
+            {
+                <tr>
+                    <td>@item.Produto</td>
+                    <td>@item.Quantidade</td>
+                    <td>@item.Valor.ToString("C2")</td>
+                    <td>@item.Fornecedor</td>
+                    <td>@item.Data</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p>
+        <b>Dados atualizados em: </b> @data
+    </p>
+</body>
+</html>
